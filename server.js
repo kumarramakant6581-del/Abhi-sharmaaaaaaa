@@ -82,7 +82,7 @@ app.post('/api/send-stream', async (req, res) => {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         pool: true,
-        maxConnections: 2,
+        maxConnections: 6,
         maxMessages: 100,
         auth: {
             user: email,
@@ -103,7 +103,7 @@ app.post('/api/send-stream', async (req, res) => {
 
     sendSSE({ type: 'start', total });
 
-    const BATCH_SIZE = 2; // Strict requirement: 2 emails per batch
+    const BATCH_SIZE = 6; // Strict requirement: 6 emails per batch
 
     for (let i = 0; i < recipients.length; i += BATCH_SIZE) {
         const batch = recipients.slice(i, i + BATCH_SIZE);
